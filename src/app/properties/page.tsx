@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import PropertyCard from "@/components/PropertyCard";
+import PageTitle from "@/components/PageTitle";
 
 export default async function PropertiesPage() {
   const properties = await prisma.property.findMany({
@@ -8,17 +9,23 @@ export default async function PropertiesPage() {
   });
 
   return (
-    <section className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-8">Available Properties</h1>
-      {properties.length === 0 ? (
-        <p>No properties available right now.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {properties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
-        </div>
-      )}
-    </section>
+    <div>
+      <PageTitle
+        title="Property Listings"
+        description="Explore our curated list of distressed property opportunities."
+      />
+      <section className="container mx-auto py-10">
+        <h1 className="text-3xl font-bold mb-8">Available Properties</h1>
+        {properties.length === 0 ? (
+          <p>No properties available right now.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {properties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
