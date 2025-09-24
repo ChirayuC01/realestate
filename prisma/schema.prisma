@@ -8,12 +8,17 @@ datasource db {
 }
 
 model Property {
-  id          Int             @id @default(autoincrement())
+  id          String          @id @default(uuid())
   title       String
   slug        String          @unique
   description String
   address     String?
   city        String?
+  state       String?
+  zip         String?
+  country     String?
+  type        String?
+  status      String?
   price       Float?
   bedrooms    Int?
   bathrooms   Int?
@@ -24,43 +29,53 @@ model Property {
 }
 
 model PropertyImage {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(uuid())
   url        String
   property   Property @relation(fields: [propertyId], references: [id])
-  propertyId Int
-}
-
-model Service {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  propertyId String
 }
 
 model TeamMember {
-  id       Int     @id @default(autoincrement())
+  id       String          @id @default(uuid())
   name     String
   role     String
   bio      String?
   photoUrl String?
+  tags     TeamMemberTag[]
+}
+
+model TeamMemberTag {
+  id           String     @id @default(uuid())
+  name         String
+  teamMember   TeamMember @relation(fields: [teamMemberId], references: [id])
+  teamMemberId String
 }
 
 model Blog {
-  id          Int       @id @default(autoincrement())
+  id          String      @id @default(uuid())
   title       String
-  slug        String    @unique
+  author      String
+  slug        String      @unique
   excerpt     String?
   content     String
-  published   Boolean   @default(false)
+  published   Boolean     @default(false)
   publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  images      BlogImage[]
+}
+
+model BlogImage {
+  id     String @id @default(uuid())
+  url    String
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
 }
 
 model ContactMessage {
-  id        Int      @id @default(autoincrement())
-  name      String
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
   email     String
   phone     String?
   message   String

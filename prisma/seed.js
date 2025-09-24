@@ -1,70 +1,80 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.service.createMany({
-    data: [
-      {
-        title: "Distressed Property Solutions",
-        description:
-          "We identify, evaluate, and structure deals for distressed assets.",
-      },
-      {
-        title: "Legal, Taxation & Insolvency Advisory",
-        description:
-          "Navigate complex legal frameworks and insolvency processes.",
-      },
-      {
-        title: "End-to-End Support",
-        description: "From due diligence to final sale, we manage every step.",
-      },
-    ],
-  });
-
-  await prisma.teamMember.createMany({
-    data: [
-      {
-        name: "Alice Johnson",
-        role: "Managing Partner",
-        bio: "15+ years experience",
-      },
-      {
-        name: "Bob Smith",
-        role: "Acquisitions Lead",
-        bio: "Expert in distressed assets",
-      },
-    ],
-  });
-
-  await prisma.property.create({
+  // Seed Properties
+  const property = await prisma.property.create({
     data: {
-      title: "Vintage Apartment near Eiffel Tower",
-      slug: "vintage-eiffel-apartment",
+      title: "Luxury Villa with Ocean View",
+      slug: "luxury-villa-ocean-view",
       description:
-        "Lovely 2-bedroom apartment with a view of the Eiffel Tower.",
-      city: "Paris",
-      price: 450000,
-      bedrooms: 2,
-      bathrooms: 1,
-      areaSqFt: 850,
+        "A stunning villa with panoramic ocean views, 5 bedrooms, and private pool.",
+      address: "123 Ocean Drive",
+      city: "Miami",
+      state: "FL",
+      zip: "33101",
+      country: "USA",
+      type: "Villa",
+      status: "For Sale",
+      price: 2500000,
+      bedrooms: 5,
+      bathrooms: 4,
+      areaSqFt: 4500,
       images: {
         create: [
-          { url: "https://via.placeholder.com/400x300.png?text=Apartment+1" },
+          { url: "https://example.com/villa1.jpg" },
+          { url: "https://example.com/villa2.jpg" },
         ],
       },
     },
   });
 
-  await prisma.blog.create({
+  // Seed Team Members
+  const teamMember = await prisma.teamMember.create({
     data: {
-      title: "How to Price Distressed Property",
-      slug: "how-to-price-distressed-property",
-      excerpt: "Learn the basics of pricing distressed assets...",
-      content: "Full blog content here...",
-      published: true,
-      publishedAt: new Date(),
+      name: "John Doe",
+      role: "CEO",
+      bio: "Visionary leader with 15 years of experience in real estate.",
+      photoUrl: "https://example.com/john.jpg",
+      tags: {
+        create: [{ name: "Leadership" }, { name: "Strategy" }],
+      },
     },
   });
+
+  // Seed Blogs
+  const blog = await prisma.blog.create({
+    data: {
+      title: "Top 10 Tips for Buying Your First Home",
+      author: "Jane Smith",
+      slug: "top-10-tips-buying-first-home",
+      excerpt:
+        "Buying your first home can be overwhelming. Here are 10 tips to help you succeed.",
+      content: "Full blog content goes here...",
+      published: true,
+      publishedAt: new Date(),
+      images: {
+        create: [
+          { url: "https://example.com/blog1.jpg" },
+          { url: "https://example.com/blog2.jpg" },
+        ],
+      },
+    },
+  });
+
+  // Seed Contact Messages
+  const contact = await prisma.contactMessage.create({
+    data: {
+      firstName: "Alice",
+      lastName: "Johnson",
+      email: "alice@example.com",
+      phone: "1234567890",
+      message: "I would like more information about the Luxury Villa.",
+    },
+  });
+
+  console.log({ property, teamMember, blog, contact });
 }
 
 main()
