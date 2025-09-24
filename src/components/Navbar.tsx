@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="bg-[#0f2740] text-white">
+    <nav className="bg-brand-primary text-white">
       <div className="container mx-auto flex items-center justify-between p-4">
         <Link href="/" className="font-bold text-xl text-yellow-400">
           DPAvisors
