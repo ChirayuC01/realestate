@@ -1,12 +1,25 @@
-import { prisma } from "@/lib/prisma";
 import PropertyCard from "@/components/PropertyCard";
 import PageTitle from "@/components/PageTitle";
+import { useState } from "react";
+
+interface Property {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  location: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+}
 
 export default async function PropertiesPage() {
-  const properties = await prisma.property.findMany({
-    include: { images: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const [properties, setProperties] = useState<Property[]>([]);
+  // const properties = await prisma.property.findMany({
+  //   include: { images: true },
+  //   orderBy: { createdAt: "desc" },
+  // });
 
   return (
     <div>

@@ -1,13 +1,6 @@
 import Link from "next/link";
-import { Property, PropertyImage } from "@prisma/client";
 
-type PropertyWithImages = Property & { images: PropertyImage[] };
-
-export default function PropertyCard({
-  property,
-}: {
-  property: PropertyWithImages;
-}) {
+export default function PropertyCard({ property }: any) {
   return (
     <div className="border rounded-lg shadow hover:shadow-lg transition overflow-hidden">
       {property.images.length > 0 && (

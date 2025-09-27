@@ -1,12 +1,10 @@
-import { prisma } from "@/lib/prisma";
-import ServiceCard from "@/components/ServiceCard";
 import PageTitle from "@/components/PageTitle";
 
 export default async function ServicesPage() {
   const services = [
     {
       id: 1,
-      icon: "🏠", // You can replace with actual icons
+      icon: "🏠",
       title: "Distressed Property Solutions",
       description:
         "We identify, evaluate, and structure deals for distressed assets, maximizing value for both sellers and buyers.",
@@ -14,7 +12,7 @@ export default async function ServicesPage() {
     },
     {
       id: 2,
-      icon: "✅", // You can replace with actual icons
+      icon: "✅",
       title: "Legal, Taxation & Insolvency Advisory",
       description:
         "Our in-house experts navigate complex legal frameworks, tax implications, and insolvency processes to ensure a seamless transaction.",
@@ -22,7 +20,7 @@ export default async function ServicesPage() {
     },
     {
       id: 3,
-      icon: "👥", // You can replace with actual icons
+      icon: "👥",
       title: "End-to-End Support",
       description:
         "From initial due diligence and valuation to marketing, negotiation, and final sale, we manage every step of the process.",

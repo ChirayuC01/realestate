@@ -1,12 +1,25 @@
-import { prisma } from "@/lib/prisma";
 import TeamMemberCard from "@/components/TeamMemberCard";
 import PageTitle from "@/components/PageTitle";
+import { useState } from "react";
+
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  bio?: string;
+  photoUrl?: string;
+  tags: {
+    id: number;
+    name: string;
+  }[];
+}
 
 export default async function TeamPage() {
-  const teamMembers = await prisma.teamMember.findMany({
-    include: { tags: true },
-    orderBy: { id: "asc" },
-  });
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  // const teamMembers = await prisma.teamMember.findMany({
+  //   include: { tags: true },
+  //   orderBy: { id: "asc" },
+  // });
 
   return (
     <div>

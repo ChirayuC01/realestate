@@ -1,15 +1,28 @@
-import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { useState } from "react";
 
 type Props = {
   params: { slug: string };
 };
 
+interface Property {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  city: string;
+  images: {
+    id: number;
+    url: string;
+  }[];
+}
+
 export default async function PropertyDetailPage({ params }: Props) {
-  const property = await prisma.property.findUnique({
-    where: { slug: params.slug },
-    include: { images: true },
-  });
+  const [property, setProperty] = useState<Property>();
+  // const property = await prisma.property.findUnique({
+  //   where: { slug: params.slug },
+  //   include: { images: true },
+  // });
 
   if (!property) return notFound();
 
